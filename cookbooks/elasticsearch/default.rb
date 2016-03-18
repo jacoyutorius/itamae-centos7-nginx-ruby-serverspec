@@ -16,12 +16,30 @@ end
 
 # kuromoji
 # https://www.elastic.co/guide/en/elasticsearch/plugins/2.0/analysis-kuromoji.html
-execute "install gems" do
+execute "install analysis-kuromoji" do
 	user "root"
 	cwd "/usr/share/elasticsearch"
 	command "bin/plugin install analysis-kuromoji"
+  not_if "test -e /usr/share/elasticsearch/plugins/analysis-kuromoji"
 end
 
+
+# http://qiita.com/yuku_t/items/cc3895a375aedd6c05c5
+# Inquisitor
+execute "install elasticsearch-inquisitor" do
+	user "root"
+	cwd "/usr/share/elasticsearch"
+	command "bin/plugin install polyfractal/elasticsearch-inquisitor"
+  not_if "test -e /usr/share/elasticsearch/plugins/elasticsearch-inquisitor"
+end
+
+# HQ
+execute "install elasticsearch-HQ" do
+	user "root"
+	cwd "/usr/share/elasticsearch"
+	command "bin/plugin install royrusso/elasticsearch-HQ"
+  not_if "test -e /usr/share/elasticsearch/plugins/hq"
+end
 
 service "elasticsearch" do
   action [:enable, :start]
