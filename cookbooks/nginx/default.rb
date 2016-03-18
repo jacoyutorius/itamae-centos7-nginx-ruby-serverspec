@@ -27,10 +27,22 @@ file "/var/www/html/index.html" do
   content "Hello,"
 end
 
-execute "write index.html" do
+# execute "write index.html" do
+#   user "root"
+#   cwd "/var/www/html"
+#   command "hostname >> index.html"
+# end
+
+execute "create index.html" do
   user "root"
   cwd "/var/www/html"
-  command "hostname >> index.html"
+  command 'wget https://s3-ap-northeast-1.amazonaws.com/jacoyutorius/html/jacoyutorius.html -O index.html;sed -i -e "s/hostname/$HOSTNAME/g" index.html'
+end
+
+template "/etc/nginx/nginx.conf" do
+  user "root"
+  group "root"
+  source "./templates/etc/nginx/nginx.conf.erb"
 end
 
 template "/etc/nginx/conf.d/default.conf" do
