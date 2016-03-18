@@ -11,6 +11,7 @@ package "grafana" do
 end
 
 # http://blog.serverworks.co.jp/tech/2016/03/11/play-with-grafana-1/
+# [TODO] レシピ実行後何故かgragana.iniの所有者がvagrantになっていた。後ほど対策する
 template "/etc/grafana/grafana.ini" do
   user "root"
   group "root"
