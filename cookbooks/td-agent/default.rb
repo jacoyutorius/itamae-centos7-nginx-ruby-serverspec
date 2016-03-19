@@ -28,3 +28,9 @@ end
 service "td-agent" do
   action [:enable, :start]
 end
+
+# CentOS7ではservice ではなく、systemctl
+execute "restart service" do
+	user "root"
+	command "systemctl daemon-reload"
+end
