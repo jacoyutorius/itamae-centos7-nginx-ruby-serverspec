@@ -125,3 +125,47 @@
   type_name nginx_access
   logstash_format true
 </match>
+
+<source>
+  type tail
+  path /var/log/messages
+  tag system.syslog.messages
+  format none
+</source>
+
+<match **>
+  type stdout
+</match>
+
+#<source>
+#  type exec
+#  command vmstat | tail -n1
+#  tag system.vmstat
+#  keys k1
+#  run_interval 1
+#</source>
+#
+#<match **>
+#  type stdout
+#</match>
+#
+
+<source>
+  type exec
+  command uptime
+  tag system.uptime
+  keys k1
+  run_interval 3
+</source>
+
+<match **>
+  type stdout
+</match>
+
+<match system.uptime>
+  type elasticsearch
+  host localhost
+  port 9200
+  type_name system_uptime
+  logstash_format true
+</match>

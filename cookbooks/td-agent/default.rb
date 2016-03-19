@@ -17,6 +17,14 @@ execute "install elasticsearch plugin" do
 	command "td-agent-gem install fluent-plugin-elasticsearch"
 end
 
+# /etc/init.d/td-agentのTD_AGENT_USERとTD_AGENT_GROUPをrootに変更する必要あり
+#  http://kenzo0107.hatenablog.com/entry/2015/08/21/011624
+execute "change daemon execute user" do
+	user "root"
+	cwd "/etc/init.d"
+	command 'sed -i -e "s/td-agent/root/g" td-agent'
+end
+
 service "td-agent" do
   action [:enable, :start]
 end
