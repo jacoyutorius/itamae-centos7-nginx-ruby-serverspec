@@ -21,3 +21,6 @@ end
 service "grafana-server" do
   action [:enable, :start]
 end
+
+# [TODO]
+# 「/etc/grafana/grafana.ini: permission denied」が出てサービス起動できないので後ほど修正する
