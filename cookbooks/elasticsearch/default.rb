@@ -44,3 +44,7 @@ end
 service "elasticsearch" do
   action [:enable, :start]
 end
+
+# [TODO]
+# sudo /bin/systemctl daemon-reload
+# sudo /bin/systemctl enable elasticsearch.service
