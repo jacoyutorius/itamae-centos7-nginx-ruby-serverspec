@@ -8,6 +8,7 @@ template "/etc/yum.repos.d/elasticsearch.repo" do
   user "root"
   group "root"
   source "./templates/etc/yum.repos.d/elasticsearch.repo.erb"
+  not_if "test -e /etc/yum.repos.d/elasticsearch.repo"
 end
 
 package "elasticsearch" do
@@ -39,6 +40,19 @@ execute "install elasticsearch-HQ" do
 	cwd "/usr/share/elasticsearch"
 	command "bin/plugin install royrusso/elasticsearch-HQ"
   not_if "test -e /usr/share/elasticsearch/plugins/hq"
+end
+
+template "/etc/elasticsearch/elasticsearch.yml" do
+  user "root"
+  group "root"
+  source "./templates/etc/elasticsearch.yml.erb"
+end
+
+# user,groupをelasticsearchにしないとサービス起動でエラーになる
+execute "change owner to elasticsearch" do
+	user "root"
+	cwd "/etc/"
+	command "chown -R elasticsearch elasticsearch;chgrp -R elasticsearch elasticsearch"
 end
 
 service "elasticsearch" do
