@@ -34,6 +34,14 @@ execute "install elasticsearch-inquisitor" do
   not_if "test -e /usr/share/elasticsearch/plugins/elasticsearch-inquisitor"
 end
 
+# https://www.elastic.co/guide/en/marvel/current/index.html
+execute "install elasticsearch-inquisitor" do
+	user "root"
+	cwd "/usr/share/elasticsearch"
+	command "bin/plugin install elasticsearch/marvel/latest"
+  not_if "test -e /usr/share/elasticsearch/plugins/head"
+end
+
 # HQ
 execute "install elasticsearch-HQ" do
 	user "root"
