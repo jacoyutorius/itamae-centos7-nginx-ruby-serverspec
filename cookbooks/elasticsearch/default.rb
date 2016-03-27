@@ -27,6 +27,7 @@ end
 
 # http://qiita.com/yuku_t/items/cc3895a375aedd6c05c5
 # Inquisitor
+#  => http://192.168.33.10:9200/_plugin/elasticsearch-inquisitor/#/
 execute "install elasticsearch-inquisitor" do
 	user "root"
 	cwd "/usr/share/elasticsearch"
@@ -35,7 +36,8 @@ execute "install elasticsearch-inquisitor" do
 end
 
 # https://www.elastic.co/guide/en/marvel/current/index.html
-execute "install elasticsearch-inquisitor" do
+#  => http://192.168.33.10:9200/_plugin/hq/
+execute "install elasticsearch-head" do
 	user "root"
 	cwd "/usr/share/elasticsearch"
 	command "bin/plugin install elasticsearch/marvel/latest"
@@ -61,6 +63,16 @@ execute "change owner to elasticsearch" do
 	user "root"
 	cwd "/etc/"
 	command "chown -R elasticsearch elasticsearch;chgrp -R elasticsearch elasticsearch"
+end
+
+
+# marvel
+#  https://www.elastic.co/downloads/marvel
+# => http://192.168.33.10:5601/app/marvel
+execute "install marvel"
+  user "root"
+  cwd "/usr/share/elasticsearch"
+  command "bin/plugin install install license;bin/plugin install marvel-agent;bin/kibana plugin --install elasticsearch/marvel/latest"
 end
 
 service "elasticsearch" do
