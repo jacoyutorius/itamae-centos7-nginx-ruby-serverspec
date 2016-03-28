@@ -42,6 +42,15 @@ execute "install elasticsearch-HQ" do
   not_if "test -e /usr/share/elasticsearch/plugins/hq"
 end
 
+# head
+#  http://192.168.33.10:9200/_plugin/head/
+execute "install elasticsearch-HQ" do
+	user "root"
+	cwd "/usr/share/elasticsearch"
+	command "bin/plugin install mobz/elasticsearch-head"
+  not_if "test -e /usr/share/elasticsearch/plugins/hq"
+end
+
 template "/etc/elasticsearch/elasticsearch.yml" do
   user "root"
   group "root"

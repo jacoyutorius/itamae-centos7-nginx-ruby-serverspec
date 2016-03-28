@@ -29,6 +29,11 @@ service "td-agent" do
   action [:enable, :start]
 end
 
+execute "restart service" do
+	user "root"
+	command "systemctl restart td-agent"
+end
+
 # CentOS7ではservice ではなく、systemctl
 execute "restart service" do
 	user "root"

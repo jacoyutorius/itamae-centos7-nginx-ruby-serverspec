@@ -133,6 +133,15 @@
   format none
 </source>
 
+<match system.syslog.messages>
+  type elasticsearch
+  host localhost
+  port 9200
+  type_name system_uptime
+  logstash_format true
+</match>
+
+
 <match **>
   type stdout
 </match>
@@ -158,7 +167,7 @@
   run_interval 3
 </source>
 
-<match **>
+<match system.uptime>
   type stdout
 </match>
 
