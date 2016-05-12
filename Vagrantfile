@@ -15,6 +15,11 @@ Vagrant.configure(2) do |config|
   config.vm.box = "geerlingguy/centos7"
   config.vm.host_name = "makinami"
 
+  config.vm.provider "virtualbox" do |vm|
+    # メモリを1024MBに設定(http://qiita.com/yukimura1227/items/0737d9683e1068721e29)
+    vm.memory = 1024
+  end
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
