@@ -78,7 +78,7 @@ end
 # marvel
 #  https://www.elastic.co/downloads/marvel
 # => http://192.168.33.10:5601/app/marvel
-execute "install marvel"
+execute "install marvel" do
   user "root"
   cwd "/usr/share/elasticsearch"
   command "bin/plugin install install license;bin/plugin install marvel-agent;bin/kibana plugin --install elasticsearch/marvel/latest"
