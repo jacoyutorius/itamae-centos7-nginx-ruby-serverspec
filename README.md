@@ -10,3 +10,11 @@ vagrant up
 bundle exec itamae ssh --vagrant --host makinami roles/application.rb -y node.yml
 ASK_SUDO_PASSWORD=1 rake spec
 ```
+
+
+## Install apps
+
+* ruby
+* rails
+* nginx
+* grafana
