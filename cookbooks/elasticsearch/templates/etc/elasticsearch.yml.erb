@@ -93,3 +93,11 @@ network.bind_host: 0.0.0.0
 # Require explicit names when deleting indices:
 #
 # action.destructive_requires_name: true
+
+#network.bind_host: 192.168.0.1
+network.bind_host: 0.0.0.0
+http.cors.enabled: true
+
+# use kuromoji
+index.analysis.analyzer.default.type: custom
+index.analysis.analyzer.default.tokenizer: kuromoji_tokenizer
