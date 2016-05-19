@@ -61,20 +61,6 @@ execute "install elasticsearch-HQ" do
   not_if "test -e /usr/share/elasticsearch/plugins/hq"
 end
 
-template "/etc/elasticsearch/elasticsearch.yml" do
-  user "root"
-  group "root"
-  source "./templates/etc/elasticsearch.yml.erb"
-end
-
-# user,groupをelasticsearchにしないとサービス起動でエラーになる
-execute "change owner to elasticsearch" do
-	user "root"
-	cwd "/etc/"
-	command "chown -R elasticsearch elasticsearch;chgrp -R elasticsearch elasticsearch"
-end
-
-
 # marvel
 #  https://www.elastic.co/downloads/marvel
 #  https://www.elastic.co/guide/en/marvel/current/index.html
@@ -89,6 +75,19 @@ execute "install marvel #2" do
   user "root"
   cwd "/var/www/html/kibana"
   command "bin/kibana plugin --install elasticsearch/marvel/latest"
+end
+
+template "/etc/elasticsearch/elasticsearch.yml" do
+  user "root"
+  group "root"
+  source "./templates/etc/elasticsearch.yml.erb"
+end
+
+# user,groupをelasticsearchにしないとサービス起動でエラーになる
+execute "change owner to elasticsearch" do
+	user "root"
+	cwd "/etc/"
+	command "chown -R elasticsearch elasticsearch;chgrp -R elasticsearch elasticsearch"
 end
 
 service "elasticsearch" do
