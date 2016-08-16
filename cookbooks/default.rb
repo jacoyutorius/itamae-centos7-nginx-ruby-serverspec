@@ -27,7 +27,7 @@ service "iptables" do
 end
 
 # install nginx
-include_recipe "nginx"
+include_recipe "nginx::install"
 
 service "nginx" do
   action [:enable, :start, :reload]
