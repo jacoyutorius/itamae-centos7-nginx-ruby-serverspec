@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:jacoyutorius/itamae-plugin-recipe-nginx.git
+  revision: 7e367ccea3843917bf500ed1e74d806e71b1354e
+  specs:
+    itamae-plugin-recipe-nginx (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -55,9 +61,10 @@ PLATFORMS
 DEPENDENCIES
   highline
   itamae
+  itamae-plugin-recipe-nginx!
   itamae-plugin-recipe-rbenv
   rake
   serverspec
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
