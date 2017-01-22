@@ -18,3 +18,11 @@ ASK_SUDO_PASSWORD=1 rake spec
 * rails
 * nginx
 * grafana
+
+## 2017.1.9
+
+```
+# boxを更新
+#  https://atlas.hashicorp.com/centos/boxes/7
+vagrant box add centos/7 centos/7
+```

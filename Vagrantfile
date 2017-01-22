@@ -12,12 +12,12 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "geerlingguy/centos7"
+  config.vm.box = "centos/7"
   config.vm.host_name = "makinami"
 
   config.vm.provider "virtualbox" do |vm|
     # メモリを1024MBに設定(http://qiita.com/yukimura1227/items/0737d9683e1068721e29)
-    vm.memory = 1024
+    vm.memory = 2048
   end
 
   # Disable automatic box update checking. If you disable this, then
@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.33.14"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -77,4 +77,6 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo yum update
   SHELL
+
+  config.vm.provision "shell", run: "always", inline: "systemctl restart network.service"
 end

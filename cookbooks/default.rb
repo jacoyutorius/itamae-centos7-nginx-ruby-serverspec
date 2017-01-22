@@ -1,12 +1,5 @@
-%w(git vim gcc openssl-devel readline-devel zlib-devel libcurl-devel sqlite sqlite-devel lsof nmap wget).each do |pkg|
+%w(git vim gcc gcc-c++ epel-release openssl-devel readline-devel zlib-devel libcurl-devel sqlite sqlite-devel lsof nmap wget).each do |pkg|
   package pkg do
-    action :install
-  end
-end
-
-# install node.js instead of therubyracer
-%w(epel-release gcc gcc-c++).each do |pkg|
-	package pkg do
     action :install
   end
 end
