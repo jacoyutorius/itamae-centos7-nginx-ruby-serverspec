@@ -1,9 +1,24 @@
-# http://qiita.com/michiomochi@github/items/1a3cd07497550bc4d5c2
-execute "add repo" do
+#
+#  cookbook - fluentd
+#   install & defaylt setting for fluentd
+# 
+#   2016.12.24
+#
+
+git "/root/uptime" do
+  repository "https://gist.github.com/jacoyutorius/f71f1ec420fca478b792be254afc5b09"
+end
+
+execute "install td-agent" do
 	user "root"
-	cwd "/"
-	# command "curl -L http://toolbelt.treasure-data.com/sh/install-redhat.sh | sh"
-  command "curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh"
+	cwd "/root"
+	command "curl -L http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh"
+end
+
+execute "install elasticsearch-plugin" do
+	user "root"
+	cwd "/root"
+	command "td-agent-gem install fluent-plugin-elasticsearch"
 end
 
 template "/etc/td-agent/td-agent.conf" do
@@ -12,30 +27,13 @@ template "/etc/td-agent/td-agent.conf" do
   source "./templates/etc/td-agent/td-agent.conf.erb"
 end
 
-execute "install elasticsearch plugin" do
-	user "root"
-	command "td-agent-gem install fluent-plugin-elasticsearch"
-end
-
-# /etc/init.d/td-agentのTD_AGENT_USERとTD_AGENT_GROUPをrootに変更する必要あり
-#  http://kenzo0107.hatenablog.com/entry/2015/08/21/011624
-execute "change daemon execute user" do
-	user "root"
-	cwd "/etc/init.d"
-	command 'sed -i -e "s/td-agent/root/g" td-agent'
+# 実行ユーザーをrootに変更
+execute "Elasticsearch config" do
+  user "root"
+  cwd "/root"
+  command "sed -i -e 's/TD_AGENT_USER=td-agent/TD_AGENT_USER=root/g' /opt/td-agent/etc/init.d/td-agent;sed -i -e 's/TD_AGENT_GROUP=td-agent/TD_AGENT_GROUP=root/g' /opt/td-agent/etc/init.d/td-agent;sed -i -e 's/TD_AGENT_USER=td-agent/TD_AGENT_USER=root/g' /etc/init.d/td-agent;sed -i -e 's/TD_AGENT_GROUP=td-agent/TD_AGENT_GROUP=root/g' /etc/init.d/td-agent"
 end
 
 service "td-agent" do
-  action [:enable, :start]
-end
-
-execute "restart service" do
-	user "root"
-	command "systemctl restart td-agent"
-end
-
-# CentOS7ではservice ではなく、systemctl
-execute "restart service" do
-	user "root"
-	command "systemctl daemon-reload"
+  action [:start, :restart]
 end
