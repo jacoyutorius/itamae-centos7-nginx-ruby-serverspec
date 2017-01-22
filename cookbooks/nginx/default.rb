@@ -25,6 +25,7 @@ end
 template "/etc/nginx/nginx.conf" do
   user "root"
   group "root"
+  mode "775"
   source "./templates/etc/nginx/nginx.conf.erb"
 end
 
