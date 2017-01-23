@@ -1,8 +1,8 @@
 rbenv:
   global:
-    2.2.0
+    2.3.0
   versions:
-    - 2.2.0
+    - 2.3.0
   scheme: https
 rbenv-default-gems:
   default-gems:
