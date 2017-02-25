@@ -1,13 +1,14 @@
 rbenv:
   global:
-    2.3.0
+    2.4.0
   versions:
-    - 2.3.0
+    - 2.4.0
   scheme: https
 rbenv-default-gems:
   default-gems:
     - bundler
-    - bcat ~>0.6
+    - bcat
     - rake
+    - gem
 rbenv-gem-rehash:
   install: true
