@@ -19,6 +19,8 @@ GEM
       thor
     itamae-plugin-recipe-rbenv (0.6.4)
       itamae (~> 1.2)
+    itamae-plugin-recipe-selinux (0.0.5)
+      itamae
     multi_json (1.12.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -63,8 +65,6 @@ DEPENDENCIES
   itamae
   itamae-plugin-recipe-nginx!
   itamae-plugin-recipe-rbenv
+  itamae-plugin-recipe-selinux
   rake
   serverspec
-
-BUNDLED WITH
-   1.11.2

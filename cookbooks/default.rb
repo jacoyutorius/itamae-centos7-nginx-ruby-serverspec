@@ -1,3 +1,7 @@
+# disable SELINUX
+include_recipe 'selinux::disabled'
+
+
 %w(git vim gcc gcc-c++ epel-release openssl-devel readline-devel zlib-devel libcurl-devel sqlite sqlite-devel lsof nmap wget tree).each do |pkg|
   package pkg do
     action :install
