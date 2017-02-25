@@ -36,6 +36,6 @@ template "/etc/nginx/conf.d/default.conf" do
   variables(nginx_root_location: "/var/www/html")
 end
 
-service "nginx.service" do
-  action [:enable, :start, :reload]
-end
+# service "nginx.service" do
+#   action [:enable, :start, :reload]
+# end
