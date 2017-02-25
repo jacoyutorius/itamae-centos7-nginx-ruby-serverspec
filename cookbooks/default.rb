@@ -1,4 +1,4 @@
-%w(git vim gcc gcc-c++ epel-release openssl-devel readline-devel zlib-devel libcurl-devel sqlite sqlite-devel lsof nmap wget).each do |pkg|
+%w(git vim gcc gcc-c++ epel-release openssl-devel readline-devel zlib-devel libcurl-devel sqlite sqlite-devel lsof nmap wget tree).each do |pkg|
   package pkg do
     action :install
   end
@@ -14,14 +14,13 @@ package "npm" do
 	options "--enablerepo=epel"
 end
 
-# 後でiptablesの設定する。今はとりあえず停止させておく
-service "iptables" do
-  action [:stop]
-end
+# execute "disable SELINUX" do
+# 	user "root"
+# 	cwd "/etc/selinux"
+# 	command "sed -i -e 's/SELINUX\=enforcing/SELINUX\=disabled/g' config"
+# end
 
-# install nginx
-include_recipe "nginx::install"
-
-service "nginx" do
-  action [:enable, :start, :reload]
-end
+# execute "reboot" do
+# 	user "root"
+# 	command "reboot"
+# end

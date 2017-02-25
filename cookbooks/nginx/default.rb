@@ -6,6 +6,8 @@
 #   2016.12.24 delete old code
 #
 
+include_recipe "nginx::install"
+
 package "nginx" do
   action :install
 end
@@ -14,12 +16,6 @@ directory "/var/www/html/" do
   owner "nginx"
   group "nginx"
   action :create
-end
-
-execute "create index.html" do
-  user "root"
-  cwd "/var/www/html"
-  command 'wget https://s3-ap-northeast-1.amazonaws.com/jacoyutorius/html/jacoyutorius.html -O index.html;sed -i -e "s/hostname/$HOSTNAME/g" index.html'
 end
 
 template "/etc/nginx/nginx.conf" do
@@ -36,6 +32,12 @@ template "/etc/nginx/conf.d/default.conf" do
   variables(nginx_root_location: "/var/www/html")
 end
 
-# service "nginx.service" do
-#   action [:enable, :start, :reload]
-# end
+execute "create index.html" do
+  user "root"
+  cwd "/var/www/html"
+  command 'wget https://s3-ap-northeast-1.amazonaws.com/jacoyutorius/html/jacoyutorius.html -O index.html;sed -i -e "s/hostname/$HOSTNAME/g" index.html'
+end
+
+service "nginx.service" do
+  action [:enable, :start, :reload]
+end
