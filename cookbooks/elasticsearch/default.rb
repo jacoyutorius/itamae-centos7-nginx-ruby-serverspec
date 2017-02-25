@@ -2,7 +2,9 @@
 #  cookbook - elasticsearch
 #   install & defaylt setting for Elasticsearch
 # 
-#   2016.12.24
+#  Last updated
+# 	  - 2017.2.25
+#   	- 2016.12.24
 #
 
 # elastic_user = "vagrant"
@@ -21,7 +23,7 @@ execute "install cerebro 0.5.0" do
 	user "root"
 	cwd "/root"
 	command "wget https://github.com/lmenezes/cerebro/releases/download/v0.5.0/cerebro-0.5.0.tgz;tar -xzvf cerebro-0.5.0.tgz;mv cerebro-0.5.0 /opt/cerebro"
-	not_if "/opt/cerebro"
+	not_if "test -e /opt/cerebro"
 end
 
 service "elasticsearch" do
